@@ -1,15 +1,9 @@
-import { Configuration, OpenAIApi } from "openai";
 import { AxiosError } from "axios";
+import { getOpenAI } from "@/server/utils";
 export default defineEventHandler(async (event) => {
-  const { OPENAI_API_KEY } = useRuntimeConfig();
-
   const { messages } = await readBody(event);
 
-  const configuration = new Configuration({
-    apiKey: OPENAI_API_KEY,
-  });
-
-  const openai = new OpenAIApi(configuration);
+  const openai = getOpenAI();
   try {
     const { data } = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
@@ -17,11 +11,16 @@ export default defineEventHandler(async (event) => {
         {
           role: "system",
           content:
-            "You are a helpful customer support agent for a software as a service that takes a blog post and products announcements for social media outlets, like twitter, facebook, and reddit.",
+            "You are a helpful customer support agent for the 'Social Media Post Generator'. This software takes an article URL and makes an announcement ",
         },
         { role: "user", content: "What's your email address" },
         { role: "assistant", content: "support@test.com" },
         { role: "user", content: "Is support available 24/7" },
+        {
+          role: "user",
+          content: "How is 'Social Media Post Generator' built?",
+        },
+        { role: "assistant", content: "With GPT-3 and Vue.js! " },
         {
           role: "assistant",
           content:
@@ -35,7 +34,7 @@ export default defineEventHandler(async (event) => {
         },
         ...messages,
       ],
-      temperature: 0.2,
+      temperature: 0,
     });
     return data;
   } catch (err) {
