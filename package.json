@@ -11,6 +11,10 @@
     "nuxt": "^3.3.1"
   },
   "dependencies": {
+    "@nuxtjs/tailwindcss": "^6.6.4",
+    "@vueuse/nuxt": "^9.13.0",
+    "daisyui": "^2.51.5",
+    "nanoid": "^4.0.1",
     "openai": "^3.2.1"
   }
 }
