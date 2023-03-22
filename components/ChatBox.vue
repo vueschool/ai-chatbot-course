@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { nanoid } from "nanoid";
+import Markdown from "vue3-markdown-it";
 interface User {
   id: string;
   avatar: string;
@@ -28,13 +29,13 @@ function getUser(id: string) {
 }
 </script>
 <template>
-  <div class="fixed bottom-[10px] right-[10px]">
+  <div class="fixed bottom-[10px] right-[10px] max-h-[95vh] overflow-y-scroll">
     <button v-show="!open" @click="open = true" class="bg-blue-500 p-3 rounded">
       <IconChat class="h-8 w-8 text-white" />
     </button>
     <div
       v-if="open"
-      class="box bg-[rgba(0,0,0,.2)] rounded w-[400px] overflow-hidden"
+      class="box bg-gray-300 dark:bg-gray-800 rounded w-[400px] overflow-hidden"
     >
       <!-- Header -->
       <header
@@ -65,7 +66,11 @@ function getUser(id: string) {
               useTimeAgo(message.createdAt).value
             }}</time>
           </div>
-          <div class="chat-bubble">{{ message?.text }}</div>
+          <div
+            class="chat-bubble py-0 prose prose-sm bg-white dark:bg-gray-900"
+          >
+            <Markdown :source="message.text" />
+          </div>
           <!-- <div class="chat-footer opacity-50">Delivered</div> -->
         </div>
       </div>
@@ -89,3 +94,11 @@ function getUser(id: string) {
     </div>
   </div>
 </template>
+<style scoped>
+:deep(code) {
+  background: none;
+}
+:deep(pre) {
+  @apply dark:bg-[rgba(0,0,0,.3)];
+}
+</style>

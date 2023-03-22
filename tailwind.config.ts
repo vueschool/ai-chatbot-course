@@ -1,4 +1,3 @@
-const daisyui = require("daisyui");
 module.exports = {
-  plugins: [daisyui],
+  plugins: [require("daisyui"), require("@tailwindcss/typography")],
 };
