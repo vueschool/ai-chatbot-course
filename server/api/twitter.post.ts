@@ -3,8 +3,6 @@ import { AxiosError } from "axios";
 export default defineEventHandler(async (event) => {
   const { url, temperature } = await readBody(event);
 
-  console.log(temperature);
-
   const openai = getOpenAI();
   try {
     const { data } = await openai.createChatCompletion({
@@ -21,7 +19,7 @@ export default defineEventHandler(async (event) => {
         },
       ],
       temperature,
-      max_tokens: 280,
+      max_tokens: 350,
     });
     return data;
   } catch (err) {

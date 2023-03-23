@@ -22,19 +22,28 @@ async function generateAnnouncement(platform: SocialPlatforms) {
   try {
     announcements.value[platform].error = false;
     announcements.value[platform].loading = true;
+    const controller = new AbortController();
+    const id = setTimeout(() => {
+      controller.abort();
+      announcements.value[platform].loading = false;
+      announcements.value[platform].error = true;
+    }, 10_000);
     const res = await $fetch(`/api/${platform}`, {
       method: "POST",
       body: {
         url: url.value,
         temperature: temperature.value,
       },
+      signal: controller.signal,
     });
+    clearTimeout(id);
     const announcement = res?.choices.at(0)?.message?.content;
     if (announcement) {
       announcements.value[platform].text = announcement;
     }
     announcements.value[platform].loading = false;
   } catch (err) {
+    announcements.value[platform].loading = false;
     announcements.value[platform].error = true;
   }
 }
@@ -42,7 +51,9 @@ async function generateAnnouncement(platform: SocialPlatforms) {
 const generateTweet = () => generateAnnouncement("twitter");
 const generateFacebookPost = () => generateAnnouncement("facebook");
 
+const timer = ref(0);
 async function handleImport() {
+  setInterval(() => timer.value++, 1_000);
   if (!url.value) return;
   generateTweet();
   generateFacebookPost();
@@ -71,7 +82,7 @@ function postToFacebook() {
 </script>
 <template>
   <div class="max-w-full w-[900px] m-auto">
-    <h1 class="text-4xl my-10">Social Media Post Generator</h1>
+    <h1 class="text-4xl my-10">Social Media Post Generator {{ timer }}</h1>
     <div></div>
     <form @submit.prevent="handleImport" class="mb-10">
       <div class="flex">
@@ -87,6 +98,7 @@ function postToFacebook() {
     </form>
 
     <div>
+      {{ announcements.twitter.error ? "❌" : "" }}
       <AppCard
         title="Twitter"
         :loading="announcements.twitter.loading"
@@ -106,6 +118,8 @@ function postToFacebook() {
           </div>
         </div>
       </AppCard>
+
+      {{ announcements.facebook.error ? "❌" : "" }}
       <AppCard
         :loading="announcements.facebook.loading"
         title="Facebook"
