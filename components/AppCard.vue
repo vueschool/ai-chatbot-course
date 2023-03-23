@@ -15,7 +15,7 @@ const isLoading = computed(() => props.state === "loading");
       <h2 class="card-title">
         <slot name="title">{{ title }}</slot>
         <ChatLoading v-if="isLoading" />
-        <span v-if="isError" class="text-red-500">
+        <span v-if="isError" class="text-red-500 text-sm font-normal">
           Error generating announcement
         </span>
       </h2>
@@ -31,7 +31,7 @@ const isLoading = computed(() => props.state === "loading");
       </div>
 
       <div class="card-actions justify-end" v-if="body">
-        <slot> </slot>
+        <slot></slot>
       </div>
     </div>
   </div>

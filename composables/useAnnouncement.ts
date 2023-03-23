@@ -1,18 +1,28 @@
+/**
+ * This composables is a base composable
+ * meant to be extended by specific soical platform composables
+ */
 import type {
   AsyncState,
   SocialPlatforms,
   AnnouncementComposable,
 } from "@/types";
-import type { NitroFetchOptions } from "nitropack";
 import type { CreateChatCompletionResponse } from "openai";
+
+interface ComposableOptions {
+  platform: SocialPlatforms;
+}
+
 export const useAnnouncement = ({
   platform,
-}: {
-  platform: SocialPlatforms;
-}): AnnouncementComposable => {
+}: ComposableOptions): AnnouncementComposable => {
   const state = ref<AsyncState>(null);
   const text = ref("");
 
+  /**
+   * Make the request to the backend
+   * to generate the soical media announcement
+   */
   async function generate(options: { url: string; temperature: number }) {
     try {
       state.value = "loading";
@@ -24,34 +34,23 @@ export const useAnnouncement = ({
         }
       );
       const announcement = res?.choices.at(0)?.message?.content;
-      if (announcement) text.value = announcement;
-      state.value = "complete";
+      if (announcement) {
+        text.value = announcement;
+        state.value = "complete";
+      } else {
+        state.value = "error";
+      }
     } catch (err) {
       state.value = "error";
     }
-  }
-
-  async function fetchWithTimeout<T>(
-    url: string,
-    fetchOptions: NitroFetchOptions<any, any> = {}
-  ): Promise<T> {
-    const controller = new AbortController();
-    const id = setTimeout(() => {
-      controller.abort();
-      throw new Error("Requet timed out");
-    }, 10_000);
-    const res = await $fetch<T>(url, {
-      ...fetchOptions,
-      signal: controller.signal,
-    });
-    clearTimeout(id);
-    return res;
   }
 
   return {
     text,
     state,
     generate,
+
+    // stub - different per social network
     post() {},
   };
 };

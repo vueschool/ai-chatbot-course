@@ -3,6 +3,11 @@ export const useFacebook = (): AnnouncementComposable => {
   const announcement = useAnnouncement({ platform: "facebook" });
   const { copy } = useClipboard();
 
+  /**
+   * We cannot pass the text to the facebook post
+   * Thus we'll open the facebook share tab
+   * and copy the text to the clipboard to make it easy to add to the post
+   */
   function post(url: string) {
     copy(announcement.text.value);
     setTimeout(() => {
