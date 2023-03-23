@@ -1,20 +1,23 @@
 <script setup lang="ts">
-withDefaults(
-  defineProps<{
-    title?: string;
-    body?: string;
-    loading?: boolean;
-  }>(),
-  {
-    loading: false,
-  }
-);
+import type { AsyncState } from "~~/types";
+const props = defineProps<{
+  title?: string;
+  body?: string;
+  state?: AsyncState;
+}>();
+
+const isError = computed(() => props.state === "error");
+const isLoading = computed(() => props.state === "loading");
 </script>
 <template>
   <div class="card bg-base-100 shadow-xl border-t-4 border-primary">
     <div class="card-body">
       <h2 class="card-title">
-        <slot name="title">{{ title }}</slot> <ChatLoading v-if="loading" />
+        <slot name="title">{{ title }}</slot>
+        <ChatLoading v-if="isLoading" />
+        <span v-if="isError" class="text-red-500">
+          Error generating announcement
+        </span>
       </h2>
 
       <div v-if="body">

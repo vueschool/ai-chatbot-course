@@ -5,7 +5,6 @@ defineProps<{
 defineEmits<{
   (e: "update:modelValue", payload: number): void;
 }>();
-const level = ref(1);
 </script>
 <template>
   <input
