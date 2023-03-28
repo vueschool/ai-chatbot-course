@@ -4,12 +4,17 @@ const props = defineProps<{
   temperature: number;
 }>();
 
-const { generate: g, post, state, text } = useTwitter();
+const { generate: g, state, text } = useAnnouncement({ platform: "twitter" });
 const generate = () => g(props);
 defineExpose({ generate });
+
+const postURL = computed(
+  () =>
+    `https://twitter.com/intent/tweet?text=${encodeURIComponent(text.value)}`
+);
 </script>
 <template>
-  <AppCard title="Twitter" :state="state" :body="text.trim()" class="mb-10">
+  <CardGeneric title="Twitter" :state="state" :body="text.trim()" class="mb-10">
     <div class="flex w-full justify-between items-center">
       <div class="text-xs">
         Character Count:
@@ -17,8 +22,8 @@ defineExpose({ generate });
       </div>
       <div>
         <button class="btn btn-neutral" @click="generate()">Regenerate</button>
-        <button class="btn btn-primary" @click="post()">Post</button>
+        <a class="btn btn-primary" :href="postURL" target="_blank">Post</a>
       </div>
     </div>
-  </AppCard>
+  </CardGeneric>
 </template>

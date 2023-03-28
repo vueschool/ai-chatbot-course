@@ -31,8 +31,8 @@ async function handleImport() {
     </form>
 
     <div>
-      <TwitterCard ref="twitterCard" v-bind="form" />
-      <FacebookCard ref="facebookCard" v-bind="form" />
+      <CardTwitter ref="twitterCard" v-bind="form" />
+      <CardFacebook ref="facebookCard" v-bind="form" />
     </div>
   </div>
 </template>
