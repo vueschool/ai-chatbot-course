@@ -21,10 +21,9 @@ defineEmits<{
     type="range"
     class="w-full range range-secondary"
   />
-  Temperature:
-  <span class="font-bold" v-if="modelValue === 1">Hot</span>
-  <span class="font-bold" v-if="modelValue < 1 && modelValue > 0">{{
-    modelValue
-  }}</span>
-  <span class="font-bold" v-if="modelValue === 0">Cold</span>
+  Temperature: {{ modelValue }}
+  <span class="font-bold" v-if="modelValue >= 0.5">
+    - More random, creative, and risky</span
+  >
+  <span class="font-bold" v-else> - More focused, deterministic, and safe</span>
 </template>
