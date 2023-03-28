@@ -87,7 +87,7 @@ watch(
         />
 
         <ChatBubble v-for="user in usersTyping" :key="user.id" :user="user">
-          <ChatLoading />
+          <AppLoading />
         </ChatBubble>
       </div>
       <!-- Footer -->

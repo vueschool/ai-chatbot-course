@@ -14,7 +14,7 @@ const isLoading = computed(() => props.state === "loading");
     <div class="card-body">
       <h2 class="card-title">
         <slot name="title">{{ title }}</slot>
-        <ChatLoading v-if="isLoading" />
+        <AppLoading v-if="isLoading" />
         <span v-if="isError" class="text-red-500 text-sm font-normal">
           Error generating announcement
         </span>
