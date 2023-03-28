@@ -1,3 +1,4 @@
+import { useFetch } from "@vueuse/core";
 /**
  * This composables is a base composable
  * meant to be extended by specific soical platform composables
@@ -20,11 +21,15 @@ export const useAnnouncement = ({ platform }: ComposableOptions) => {
   async function generate(options: { url: string; temperature: number }) {
     try {
       state.value = "loading";
+
       const res = await fetchWithTimeout<CreateChatCompletionResponse>(
-        `/api/${platform}`,
+        `/api/announcement`,
         {
           method: "POST",
-          body: options,
+          body: {
+            ...options,
+            platform,
+          },
         }
       );
       const announcement = res?.choices.at(0)?.message?.content;

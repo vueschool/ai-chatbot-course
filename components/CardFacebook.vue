@@ -5,7 +5,7 @@ const props = defineProps<{
 }>();
 
 const { generate: g, state, text } = useAnnouncement({ platform: "facebook" });
-const generate = () => g(props);
+const generate = () => nextTick(() => g(props));
 defineExpose({ generate });
 
 const announcement = useAnnouncement({ platform: "facebook" });

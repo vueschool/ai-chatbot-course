@@ -39,7 +39,6 @@ export default defineEventHandler(async (event) => {
     return data;
   } catch (err) {
     const error = err as AxiosError;
-    console.log(error.message);
     return null;
   }
 });
