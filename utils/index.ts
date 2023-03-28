@@ -7,7 +7,7 @@ export async function fetchWithTimeout<T>(
   const id = setTimeout(() => {
     controller.abort();
     throw new Error("Requet timed out");
-  }, 10_000);
+  }, 15_000);
   const res = await $fetch<T>(url, {
     ...fetchOptions,
     signal: controller.signal,

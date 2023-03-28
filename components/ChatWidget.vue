@@ -1,35 +1,34 @@
-<script setup>
-import { nanoid } from "nanoid";
+<script setup lang="ts">
+import { Message, User } from "~~/types";
+
 const me = ref({
-  id: nanoid(),
-  avatar:
-    "https://pbs.twimg.com/profile_images/1543113237415215104/6MUa5Tta_400x400.jpg",
-  name: "Daniel",
+  id: "user",
+  avatar: "/avatar.jpg",
+  name: "You",
 });
 const bot = ref({
-  id: nanoid(),
-  avatar:
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR0SGq5ryvPkabjn_1Zd0W8cqpOQsH2kzrO61_nyOa_pyzpYcUA7FrrbMixbVBDdsSEX50&usqp=CAU",
+  id: "assistant",
+  avatar: "/bot.jpg",
   name: "Botman",
 });
 
-const users = ref([me.value, bot.value]);
+const users = computed(() => [me.value, bot.value]);
 
-const messages = ref([]);
+const messages = ref<Message[]>([]);
 
-const usersTyping = ref([]);
+const usersTyping = ref<User[]>([]);
 
 const apiReadyMessages = computed(() => {
   return messages.value.map((message) => {
     return {
-      role: message.userId === me.value.id ? "user" : "assistant",
+      role: message.userId,
       content: message.text,
     };
   });
 });
 
-async function handleNewMessage(e) {
-  messages.value.push(e);
+async function handleNewMessage(message: Message) {
+  messages.value.push(message);
   usersTyping.value.push(bot.value);
   const res = await $fetch("/api/chat", {
     method: "POST",
@@ -37,12 +36,15 @@ async function handleNewMessage(e) {
       messages: apiReadyMessages.value,
     },
   });
-  messages.value.push({
-    userId: bot.value.id,
-    createdAt: new Date(),
-    text: res.choices.at(0).message.content,
-    id: res.id,
-  });
+  if (res) {
+    messages.value.push({
+      userId: bot.value.id,
+      createdAt: new Date(),
+      text: res.choices.at(0)?.message?.content as string,
+      id: res.id,
+    });
+  }
+
   usersTyping.value = [];
 }
 </script>

@@ -6,7 +6,7 @@ export interface User {
 export interface Message {
   id: string;
   userId: string;
-  createdAt: string;
+  createdAt: Date;
   text: string;
 }
 export type AsyncState = null | "loading" | "error" | "complete";
