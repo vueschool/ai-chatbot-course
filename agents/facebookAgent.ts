@@ -1,6 +1,6 @@
-import createTraining from ".";
+import createAgent from ".";
 
-export const trainFacebook = createTraining((context) => {
+export const facebookAgent = createAgent((context) => {
   return {
     messages: [
       {

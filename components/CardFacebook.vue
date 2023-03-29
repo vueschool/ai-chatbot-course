@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import { useChatAi } from "~~/composables/useChatAi";
-
 const props = defineProps<{
   url: string;
   temperature: number;
 }>();
 
-const { chat, state, firstMessage } = useChatAi({ training: "facebook" });
+const { chat, state, firstMessage } = useChatAi({ agent: "facebook" });
 
 const generate = () => nextTick(() => chat(props));
 defineExpose({ generate });

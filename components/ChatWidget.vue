@@ -27,7 +27,7 @@ const apiReadyMessages = computed(() => {
   });
 });
 
-const { chat } = useChatAi({ training: "customerSupport" });
+const { chat } = useChatAi({ agent: "customerSupport" });
 async function handleNewMessage(message: Message) {
   messages.value.push(message);
   usersTyping.value.push(bot.value);

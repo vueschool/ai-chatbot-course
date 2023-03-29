@@ -1,6 +1,6 @@
-import createTraining from ".";
+import createAgent from ".";
 
-export const trainTwitter = createTraining((context) => {
+export const twitterAgent = createAgent((context) => {
   return {
     messages: [
       {

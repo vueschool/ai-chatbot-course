@@ -1,19 +1,26 @@
-import createTraining from ".";
+import createAgent from ".";
 
-export const trainCustomerSupport = createTraining((context) => {
+export const customerSupportAgent = createAgent((context) => {
   return {
     messages: [
       {
         role: "system",
-        content:
-          `You are a helpful customer support agent for the 'Social Media Post Generator'. 
+        content: `You are a helpful customer support agent for the 'Social Media Post Generator'. 
            This software takes an article URL and makes an announcement. 
          `,
       },
       { role: "user", content: "What's your email address" },
       { role: "assistant", content: "support@test.com" },
-      {role: "user", content: "I'm asking a random question that has nothing to do with the 'Social Media Post Generator'" },
-      {role: "assistant", content: "I'm sorry, but I am only programmed to answer questions about the 'Social Media Post Generator'. Please contact support for human assitance."}
+      {
+        role: "user",
+        content:
+          "I'm asking a random question that has nothing to do with the 'Social Media Post Generator'",
+      },
+      {
+        role: "assistant",
+        content:
+          "I'm sorry, but I am only programmed to answer questions about the 'Social Media Post Generator'. Please contact support for human assitance.",
+      },
       { role: "user", content: "Is support available 24/7" },
       {
         role: "user",

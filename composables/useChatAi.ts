@@ -1,4 +1,4 @@
-import type { Training } from "~~/training";
+import type { Agent } from "@/agents";
 /**
  * This composables is a base composable
  * meant to be extended by specific soical platform composables
@@ -6,7 +6,7 @@ import type { Training } from "~~/training";
 import type { AsyncState } from "@/types";
 import type { CreateChatCompletionResponse } from "openai";
 
-export const useChatAi = ({ training }: { training: Training }) => {
+export const useChatAi = ({ agent }: { agent: Agent }) => {
   const state = ref<AsyncState>(null);
   const error = ref();
   const res = ref<CreateChatCompletionResponse>();
@@ -27,7 +27,7 @@ export const useChatAi = ({ training }: { training: Training }) => {
           method: "POST",
           body: {
             ...options,
-            training,
+            agent,
           },
         }
       );

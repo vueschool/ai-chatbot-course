@@ -1,6 +1,5 @@
-import * as trainings from "@/training";
+import * as agents from "@/agents";
 import { Configuration, OpenAIApi } from "openai";
-import { ucFirst } from "~~/utils";
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
@@ -14,16 +13,16 @@ export default defineEventHandler(async (event) => {
 
   // send request to Chat Model
   try {
-    if (!Object.keys(trainings).includes(`train${ucFirst(body.training)}`)) {
-      throw new Error(`Training ${body.training} does not exist`);
+    if (!Object.keys(agents).includes(`${body.agent}Agent`)) {
+      throw new Error(`${body.agent} Agent does not exist`);
     }
 
     const { data } = await openai.createChatCompletion({
       model: "gpt-3.5-turbo",
       temperature: body.temperature || 1,
       messages: body.messages || [],
-      // @ts-expect-error checking above if training exists
-      ...trainings[`train${ucFirst(body.training)}`](body),
+      // @ts-expect-error checking above if agent exists
+      ...agents[`${body.agent}Agent`](body),
     });
     return data;
   } catch (error) {

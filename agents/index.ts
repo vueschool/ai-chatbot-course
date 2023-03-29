@@ -1,14 +1,14 @@
 // register all training files here
-export * from "./trainCustomerSupport";
-export * from "./trainFacebook";
-export * from "./trainTwitter";
+export * from "./customerSupportAgent";
+export * from "./facebookAgent";
+export * from "./twitterAgent";
 
 // and register types here
-export type Training = "facebook" | "twitter" | "customerSupport";
+export type Agent = "facebook" | "twitter" | "customerSupport";
 
 // util function for creating trainings with proper typing
 import type { CreateChatCompletionRequest } from "openai";
-export default function createTraining(
+export default function createAgent(
   training: (
     context: Record<string, any>
   ) => Partial<CreateChatCompletionRequest>
