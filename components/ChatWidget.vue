@@ -21,7 +21,7 @@ const usersTyping = ref<User[]>([]);
 // send messages to Chat API here
 // and in the empty function below
 
-function handleNewMessage(message: Message) {}
+async function handleNewMessage(message: Message) {}
 </script>
 <template>
   <ChatBox
