@@ -1,6 +1,6 @@
 import createTraining from "./createTraining";
 
-export default createTraining((context) => {
+export const twitterTraining = createTraining((context) => {
   return {
     messages: [
       {

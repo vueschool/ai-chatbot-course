@@ -24,8 +24,17 @@ function getUser(id: string) {
   return props.users.find((user) => user.id === id);
 }
 
-const messageBox = ref();
+// focus input whenever chatbox is opened
+const input = ref();
+watch(open, () => {
+  if (!open.value) return;
+  nextTick(() => {
+    (input.value as HTMLInputElement).focus();
+  });
+});
 
+// keep messages anchored to bottom
+const messageBox = ref();
 watch(
   () => props.messages,
   () => {
@@ -37,7 +46,7 @@ watch(
 );
 </script>
 <template>
-  <div ref="messageBox" class="fixed bottom-[10px] right-[10px]">
+  <div class="fixed bottom-[10px] right-[10px]">
     <button v-show="!open" @click="open = true" class="bg-blue-500 p-3 rounded">
       <IconChat class="h-8 w-8 text-white" />
     </button>
@@ -68,7 +77,7 @@ watch(
         </button>
       </header>
       <!-- Messages -->
-      <div class="messages p-4 overflow-y-scroll max-h-[80vh]">
+      <div class="messages p-4 overflow-y-scroll max-h-[80vh]" ref="messageBox">
         <div v-if="!messages.length" class="text-center w-[350px] m-auto">
           <strong class="text-lg">Chat with Botman!</strong>
           <p>Our A.I. powered assistant</p>
@@ -94,7 +103,8 @@ watch(
       <!-- Footer -->
       <footer class="p-2">
         <input
-          class="input w-full"
+          ref="input"
+          class="input w-full px-2 block"
           type="text"
           placeholder="Type your message"
           @keypress.enter="
@@ -107,6 +117,13 @@ watch(
             ($event.target as HTMLInputElement).value = '';
           "
         />
+
+        <div class="h-6 py-1 px-2 text-sm italic">
+          <span v-if="usersTyping.length">
+            {{ usersTyping.map((user) => user.name).join(" and ") }}
+            {{ usersTyping.length === 1 ? "is" : "are" }} typing
+          </span>
+        </div>
       </footer>
     </div>
   </div>

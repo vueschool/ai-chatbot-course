@@ -4,21 +4,28 @@ const props = defineProps<{
   temperature: number;
 }>();
 
-const { generate: g, state, text } = useAnnouncement({ platform: "twitter" });
-const generate = () => nextTick(() => g(props));
+const { chat, state, firstMessage } = useChatAi({ training: "facebook" });
+const generate = () => nextTick(() => chat(props));
 defineExpose({ generate });
 
 const postURL = computed(
   () =>
-    `https://twitter.com/intent/tweet?text=${encodeURIComponent(text.value)}`
+    `https://twitter.com/intent/tweet?text=${encodeURIComponent(
+      firstMessage.value?.content || ""
+    )}`
 );
 </script>
 <template>
-  <CardGeneric title="Twitter" :state="state" :body="text.trim()" class="mb-10">
+  <CardGeneric
+    title="Twitter"
+    :state="state"
+    :body="firstMessage?.content.trim()"
+    class="mb-10"
+  >
     <div class="flex w-full justify-between items-center">
       <div class="text-xs">
         Character Count:
-        <strong>{{ text.length }}</strong>
+        <strong>{{ firstMessage?.content.length }}</strong>
       </div>
       <div>
         <button class="btn btn-neutral" @click="generate()">Regenerate</button>
