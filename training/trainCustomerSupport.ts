@@ -1,6 +1,6 @@
-import createTraining from "./createTraining";
+import createTraining from ".";
 
-export const customerSupportTraining = createTraining((context) => {
+export const trainCustomerSupport = createTraining((context) => {
   return {
     messages: [
       {

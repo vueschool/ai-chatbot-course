@@ -1,5 +1,7 @@
 import * as trainings from "@/training";
 import { Configuration, OpenAIApi } from "openai";
+import { ucFirst } from "~~/utils";
+
 export default defineEventHandler(async (event) => {
   const body = await readBody(event);
 
@@ -12,7 +14,7 @@ export default defineEventHandler(async (event) => {
 
   // send request to Chat Model
   try {
-    if (!Object.keys(trainings).includes(`${body.training}Training`)) {
+    if (!Object.keys(trainings).includes(`train${ucFirst(body.training)}`)) {
       throw new Error(`Training ${body.training} does not exist`);
     }
 
@@ -21,7 +23,7 @@ export default defineEventHandler(async (event) => {
       temperature: body.temperature || 1,
       messages: body.messages || [],
       // @ts-expect-error checking above if training exists
-      ...trainings[`${body.training}Training`](body),
+      ...trainings[`train${ucFirst(body.training)}`](body),
     });
     return data;
   } catch (error) {

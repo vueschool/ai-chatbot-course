@@ -1,6 +1,6 @@
-import createTraining from "./createTraining";
+import createTraining from ".";
 
-export const twitterTraining = createTraining((context) => {
+export const trainTwitter = createTraining((context) => {
   return {
     messages: [
       {

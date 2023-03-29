@@ -1,6 +1,6 @@
-import createTraining from "./createTraining";
+import createTraining from ".";
 
-export const facebookTraining = createTraining((context) => {
+export const trainFacebook = createTraining((context) => {
   return {
     messages: [
       {
