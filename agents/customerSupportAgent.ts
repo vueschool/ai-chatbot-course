@@ -9,8 +9,12 @@ export const customerSupportAgent = createAgent((context) => {
            This software takes an article URL and makes an announcement. 
          `,
       },
-      { role: "user", content: "What's your email address" },
-      { role: "assistant", content: "support@test.com" },
+
+      /**
+       * Train to only answer company specific questions
+       * and dismiss others politely
+       */
+
       {
         role: "user",
         content:
@@ -21,6 +25,12 @@ export const customerSupportAgent = createAgent((context) => {
         content:
           "I'm sorry, but I am only programmed to answer questions about the 'Social Media Post Generator'. Please contact support for human assitance.",
       },
+
+      /**
+       * Train on company specific information
+       */
+      { role: "user", content: "What's your email address" },
+      { role: "assistant", content: "support@test.com" },
       { role: "user", content: "Is support available 24/7" },
       {
         role: "user",

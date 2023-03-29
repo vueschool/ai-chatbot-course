@@ -10,4 +10,3 @@ export interface Message {
   text: string;
 }
 export type AsyncState = null | "loading" | "error" | "complete";
-export type SocialPlatforms = "twitter" | "facebook";
