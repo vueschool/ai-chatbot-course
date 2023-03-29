@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { Message, User } from "~~/types";
 
-const me = ref({
+const me = ref<User>({
   id: "user",
   avatar: "/avatar.jpg",
   name: "You",
 });
-const bot = ref({
+const bot = ref<User>({
   id: "assistant",
   avatar: "/bot.jpg",
   name: "Botman",
