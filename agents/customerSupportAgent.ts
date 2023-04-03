@@ -34,8 +34,7 @@ export const customerSupportAgent = createAgent((context) => {
       { role: "user", content: "Is support available 24/7" },
       {
         role: "assistant",
-        content:
-          "No, but email us at support@test.com and we will respond within 1 business day",
+        content: "No, but email us and we will respond within 1 business day",
       },
       {
         role: "user",
