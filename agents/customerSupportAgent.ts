@@ -33,15 +33,15 @@ export const customerSupportAgent = createAgent((context) => {
       { role: "assistant", content: "support@test.com" },
       { role: "user", content: "Is support available 24/7" },
       {
-        role: "user",
-        content: "How is 'Social Media Post Generator' built?",
-      },
-      { role: "assistant", content: "With GPT-3 and Vue.js! " },
-      {
         role: "assistant",
         content:
           "No, but email us at support@test.com and we will respond within 1 business day",
       },
+      {
+        role: "user",
+        content: "How is 'Social Media Post Generator' built?",
+      },
+      { role: "assistant", content: "With GPT-3 and Vue.js! " },
       { role: "user", content: "Can I import posts from a URL" },
       {
         role: "assistant",
