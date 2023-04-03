@@ -28,7 +28,7 @@ defineProps<{
       }}</time>
     </div>
     <div
-      class="chat-bubble py-0 prose prose-sm bg-white dark:bg-gray-900 max-w-full"
+      class="chat-bubble py-0 prose prose-sm bg-white dark:bg-gray-900 max-w-max w-full"
     >
       <slot>
         <Markdown :source="message?.text" class="w-full" />
