@@ -4,7 +4,7 @@ export const customerSupportAgent = createAgent((context) => {
   return {
     messages: [
       /**
-       * Train politely dismiss questions unrelated to the application
+       * Train bot to only respond to app specific questions
        */
       {
         role: "system",
@@ -26,7 +26,7 @@ export const customerSupportAgent = createAgent((context) => {
       },
 
       /**
-       * Train on app specific information
+       * Train bot with app specific information
        */
 
       { role: "user", content: "What's your email address" },
