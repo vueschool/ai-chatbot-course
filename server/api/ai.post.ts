@@ -1,5 +1,7 @@
 import { Configuration, OpenAIApi } from "openai";
 export default defineEventHandler(async (event) => {
+  const body = await readBody(event);
+
   const { OPENAI_API_KEY } = useRuntimeConfig();
 
   const configuration = new Configuration({
@@ -9,7 +11,8 @@ export default defineEventHandler(async (event) => {
 
   const completion = await openai.createChatCompletion({
     model: "gpt-3.5-turbo",
-    messages: [{ role: "user", content: "Hello world" }],
+    messages: body.messages || [],
+    temperature: body.temperature || 1,
   });
   return completion.data;
 });
