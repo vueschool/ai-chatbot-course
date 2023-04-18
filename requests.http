@@ -10,3 +10,7 @@ Authorization: Bearer {{$dotenv NUXT_OPENAI_API_KEY}}
   "temperature": 0,
   "n": 1
 }
+
+### 
+
+POST http://localhost:3000/api/ai
