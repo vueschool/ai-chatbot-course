@@ -9,8 +9,7 @@ const props = withDefaults(
     usersTyping?: User[];
   }>(),
   {
-    // @ts-expect-error not sure why this is erroring, I'm 99% it's right 😬
-    usersTyping: [],
+    usersTyping: () => [],
   }
 );
 
