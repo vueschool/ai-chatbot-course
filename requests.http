@@ -17,7 +17,6 @@ POST http://localhost:3000/api/ai
 Content-Type: application/json
 
 {
-  "messages": [
-    { "role" : "user", "content": "Are we there yet?" }
-  ]
+  "agent": "facebookAgent",
+  "url": "https://vueschool.io/articles/vuejs-tutorials/sorting-filtering-and-paginating-data-from-a-laravel-backend-in-a-vue-js-spa/"
 }
