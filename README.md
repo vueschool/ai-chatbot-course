@@ -2,6 +2,10 @@
 
 Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
+## Prerequisite
+
+Ensure you are using Node.js version 18.0.0 or higher.
+
 ## Setup
 
 Make sure to install the dependencies:
