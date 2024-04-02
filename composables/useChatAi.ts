@@ -4,11 +4,17 @@ import type { Agent } from "@/agents";
  * meant to be extended by specific soical platform composables
  */
 import type { AsyncState } from "@/types";
+
+// if using openai v4 use the following import instead:
+// import type OpenAI from "openai";
 import type { CreateChatCompletionResponse } from "openai";
 
 export const useChatAi = ({ agent }: { agent: Agent }) => {
   const state = ref<AsyncState>(null);
   const error = ref();
+
+  // if using openai v4, define the ref as the following type instead
+  // const res = ref<OpenAI.Chat.Completions.ChatCompletion>();
   const res = ref<CreateChatCompletionResponse>();
 
   const usage = computed(() => res.value?.usage);
@@ -21,6 +27,8 @@ export const useChatAi = ({ agent }: { agent: Agent }) => {
     try {
       state.value = "loading";
 
+      // if using openai v4, the fetch response should be the following type instead
+      // const result = await fetchWithTimeout<OpenAI.Chat.Completions.ChatCompletion>(
       const result = await fetchWithTimeout<CreateChatCompletionResponse>(
         `/api/ai`,
         {
