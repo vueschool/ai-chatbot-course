@@ -7,9 +7,9 @@ export * from "./twitterAgent";
 export type Agent = "facebook" | "twitter" | "customerSupport";
 
 // util function for creating trainings with proper typing
-import type { CreateChatCompletionRequest } from "openai";
+import type OpenAI from "openai";
 export default function createAgent(
-  agent: (context: Record<string, any>) => Partial<CreateChatCompletionRequest>
+  agent: (context: Record<string, any>) => Partial<OpenAI.Chat.ChatCompletionCreateParamsNonStreaming>
 ) {
   return agent;
 }

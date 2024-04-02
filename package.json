@@ -17,7 +17,7 @@
     "@vueuse/nuxt": "^9.13.0",
     "daisyui": "^2.51.5",
     "nanoid": "^4.0.1",
-    "openai": "^3.2.1",
+    "openai": "^4.0.0",
     "vue3-markdown-it": "^1.0.10"
   }
 }
