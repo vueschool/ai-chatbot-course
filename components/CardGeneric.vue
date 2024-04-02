@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { AsyncState } from "~~/types";
+import type { AsyncState } from "@/types";
 const props = defineProps<{
   title?: string;
   body?: string;
